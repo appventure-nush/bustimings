@@ -6,4 +6,4 @@ pipeline:
     repo: registry:5000/bustimings
     tags:
       - latest
-      - ${DRONE_COMMIT_SHA:0:8}
+      - "${DRONE_COMMIT_SHA:0:8}"
