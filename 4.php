@@ -91,16 +91,19 @@
     </head>
     <body>
         <?php
+
+		include 'config.php';
+
         $busstops = array("16991", "17191", "17129", "17121");
         $busstopsname = array("Front Gate", "Back Gate", "Back Gate Middle", "Back Gate Far");
         $ch = curl_init();
         curl_setopt_array($ch, array(
-            CURLOPT_HTTPHEADER => array('AccountKey:IIh+dRi0QrOqIrtV9sEwZQ==', 'UniqueUserID:acacac45-cccd-42a4-92bd-54bb99b86bf7', ''),
+            CURLOPT_HTTPHEADER => array('AccountKey:'.ACCOUNT_KEY, 'UniqueUserID:'.ACCOUNT_UUID, ''),
             CURLOPT_RETURNTRANSFER => true,
         ));
 
         for ($i = 0; $i < count($busstops); $i++) {
-            curl_setopt($ch, CURLOPT_URL, "http://datamall2.mytransport.sg/ltaodataservice/BusArrival?BusStopID=" . $busstops[$i] . "&SST=True");
+            curl_setopt($ch, CURLOPT_URL, "http://datamall2.mytransport.sg/ltaodataservice/BusArrivalv2?BusStopCode=" . $busstops[$i] . "&SST=True");
             $current_time = time();
             $expire_time = 60;
             $file = $i."cache";
@@ -137,13 +140,13 @@
             if (empty($s)) {
                 return "LightCyan";
             }
-            if ($s == "Seats Available") {
+            if ($s == "SEA") {
                 return "#99ff99";
             }
-            if ($s == "Standing Available") {
+            if ($s == "SDA") {
                 return "#ffff99";
             }
-            if ($s == "Limited Standing") {
+            if ($s == "LSD") {
                 return "#ff9999";
             }
         }
@@ -159,9 +162,9 @@
             } else {
                 echo "</td>";
             }
-            echo "<td class='t2' style=' background-color: " . getColor($data[$i]['SubsequentBus']['Load']) . "'>
-							" . getMins($data[$i]['SubsequentBus']['EstimatedArrival']);
-            if (getMins($data[$i]['SubsequentBus']['EstimatedArrival']) != 'Arr') {
+            echo "<td class='t2' style=' background-color: " . getColor($data[$i]['NextBus2']['Load']) . "'>
+							" . getMins($data[$i]['NextBus2']['EstimatedArrival']);
+            if (getMins($data[$i]['NextBus2']['EstimatedArrival']) != 'Arr') {
                 echo "<span class='m'>m</span>
 							</td>";
             } else {
