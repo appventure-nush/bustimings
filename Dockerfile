@@ -13,6 +13,6 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends software-pro
 EXPOSE 8080
 WORKDIR /srv
 
-COPY 4.php 5.php index.php /srv/
+COPY 4.php 5.php index.php config.php /srv/
 
 ENTRYPOINT ["/usr/bin/hhvm", "-m", "s", "-v", "Server.AllowRunAsRoot=1", "-p", "8080"]
