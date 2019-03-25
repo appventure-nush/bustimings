@@ -5,6 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
             td{
+                <?php
+                if (isset($_GET['size'])) {
+                    echo "font-size:" . $_GET['size'] . "vmin;";
+                } else {
+                    echo "font-size:5.5vmin;";
+                }
+                ?>
                 font-family:Arial, Helvetica, sans-serif;
                 background-color: lightcyan;
                 border-style:Solid;
@@ -37,9 +44,9 @@
             </h1>
         </div>
         <?php
-		
+
 		require 'config.php';
-        
+
 		$busstops = array("16991", "17191", "17129", "17121");
         $busstopsname = array("Front Gate", "Back Gate", "Back Gate Middle", "Back Gate Far");
         $ch = curl_init();
@@ -71,7 +78,11 @@
             }
             $now = new DateTime();
             $diff = $now->diff(new DateTime($s));
-            return $diff->format("<big><big>%i</big></big>");
+            if (isset($_GET['time'])) {
+                return $diff->format($_GET['time']);
+            } else {
+                return $diff->format("<big><big>%i</big></big>");
+            }
         }
 
         function getcolor($s) {
