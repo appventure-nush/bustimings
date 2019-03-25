@@ -21,4 +21,4 @@ WORKDIR /srv
 
 COPY 4.php 5.php index.php config.php /srv/
 
-ENTRYPOINT ["/usr/bin/hhvm", "-m", "s", "-v", "Server.AllowRunAsRoot=1", "-p", "8080"]
+ENTRYPOINT ["hhvm", "-m", "s", "-v", "Server.AllowRunAsRoot=1", "-p", "8080"]
