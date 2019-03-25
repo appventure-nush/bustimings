@@ -5,13 +5,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
             td{
-                <?php
-                if (isset($_GET['size'])) {
-                    echo "font-size:" . $_GET['size'] . "vmin;";
-                } else {
-                    echo "font-size:5.5vmin;";
-                }
-                ?>
                 font-family:Arial, Helvetica, sans-serif;
                 background-color: lightcyan;
                 border-style:Solid;
@@ -55,7 +48,6 @@
             CURLOPT_RETURNTRANSFER => true,
         ));
         $now = new DateTime();
-
         function reorder(&$a) {
             if (empty($a["NextBus"]["EstimatedArrival"])) {
                 return;
@@ -71,20 +63,14 @@
                 $a["NextBus3"]["Load"] = "";
             }
         }
-
         function gettime($s) {
             if (empty($s)) {
                 return "&nbsp&nbsp&nbsp--";
             }
             $now = new DateTime();
             $diff = $now->diff(new DateTime($s));
-            if (isset($_GET['time'])) {
-                return $diff->format($_GET['time']);
-            } else {
-                return $diff->format("<big><big>%i</big></big>");
-            }
+            return $diff->format("<big><big>%i</big></big>");
         }
-
         function getcolor($s) {
             if (empty($s)) {
                 return "#E8E8E8";
@@ -99,7 +85,6 @@
                 return "#f5a3a3";
             }
         }
-
         echo "<table border='1'; style='table-layout:fixed;width:100%;height:100%;border-collapse:collapse;'>";
         for ($i = 0; $i < count($busstops); $i++) {
             echo "<tr><td rowspan='4' style='width:21%;padding:2%'>" . $busstopsname[$i] . "</td>";
@@ -137,7 +122,6 @@
             echo "</tr><tr>";
             for ($ii = 0; $ii < count($out['Services']); $ii++) {
                 if (isset($_GET['show']) || ($out['Services'][$ii]["ServiceNo"] != '97e' && $out['Services'][$ii]["ServiceNo"] != '963R')) {
-
                     echo "<td class='time' style='border-width: 0px 1px 1px 0px;background-color:" . getcolor($out['Services'][$ii]["NextBus3"]["Load"]) . "'>" . gettime($out['Services'][$ii]["NextBus3"]["EstimatedArrival"]) . "</td>";
                 }
             }
