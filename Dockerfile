@@ -18,7 +18,6 @@ FROM php:7.2-apache
 #  && rm -rf /var/lib/apt/lists/* \
 #  && sed -i 's,s3-us-west-2.amazonaws.com/hhvm-downloads/,dl2.hhvm.com/,' /etc/apt/sources.list
 
-EXPOSE 8080
 WORKDIR /srv
 
 COPY 4.php 5.php index.php config.php /var/www/html/
