@@ -21,8 +21,6 @@ FROM php:7.2-apache
 EXPOSE 8080
 WORKDIR /srv
 
-COPY 4.php 5.php index.php config.php /srv/
-
-COPY srv/ /var/www/html/
+COPY 4.php 5.php index.php config.php /var/www/html/
 
 #ENTRYPOINT ["/usr/bin/hhvm", "-m", "s", "-v", "Server.AllowRunAsRoot=1", "-p", "8080"]
