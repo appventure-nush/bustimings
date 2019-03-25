@@ -89,7 +89,9 @@
     $current_time = time();
     $expire_time = 60;
     $file = $i."cache";
-    $file_time = filemtime($file);
+    if(file_exists($file)){
+        $file_time = filemtime($file);
+    }
     if (file_exists($file) && ($current_time - $expire_time < $file_time)) {
       $json = file_get_contents($file);
     } else {
