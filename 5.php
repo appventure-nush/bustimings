@@ -3,87 +3,68 @@
   <head>
     <meta http-equiv="refresh" content="300">
     <meta name="viewport" content="width=device-width,initial-scale=0.7,maximum-scale=0.7,user-scalable=no">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:600,700" rel="stylesheet">
     <style>
     * {
       box-sizing: border-box;
     }
-    body,html{
-      padding:0%;
-      margin:0%;
-      height:100%;
-      font-size: 100%;
-    }
-    body{
+    html, body{
+      margin: 0;
+      font-family: 'Open Sans', sans-serif;
       overflow:hidden;
-      background-color: #eeeeee
+      background-color: #FFF;
+      height: 100%;
+    }
+    .container{
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .container p,table {
+      margin-left: 12px;
+      margin-right: 12px;
     }
     #top{
-      width:100%;
-      position: absolute;
-      top:0px;
-      border-bottom-style: solid;
-      height:7.1%;
+      display: flex;
+      padding: 6px 12px;
+      justify-content: space-between;
+      background-color: #000;
+      color: #FFF;
     }
-    .title{
-      font-size: 270%;
-      background-color:transparent;
-      margin-top:10px !important;
-      padding-left:10px;
-      font-family: Helvetica;
-    }
-    #time{
-      position: absolute;
-      left:60%;
-      width: 50%;
-      text-align:center;
-    }
-    #mid{
-      position: absolute;
-      top:10%;
-      width:100%;
-      height:90%;
+    #top p {
       margin: 0;
+      font-size: 250%;
+      background-color:transparent;
     }
     .stopName{
-      font-size: 350%;
-      padding-bottom: 10px;
-      height: 6%;
+      font-weight: 600;
+      font-size: 260%;
       margin: 0;
-      padding-bottom: 5px;
-      font-family: Helvetica;
     }
     .stop{
-      position:absolute;
+      table-layout: fixed;
       border-collapse: collapse;
     }
     .busNo{
-      font-size: 400%;
-      color: #eeeeee;
+      color: #FFF;
       border-bottom-style: solid;
-      font-family: Helvetica;
       text-align: center;
       background-color: #b30000;
-      width: 20%;
     }
-    .t1{
-      font-size: 400%;
+    .tableCell{
+      font-weight: 600;
       border-right-style: solid;
       border-left-style: solid;
-      font-family: Helvetica;
       text-align: center;
       border-bottom-style: solid;
-      border-color: #eeeeee;
-      width: 18%;
+      border-color: #FFF;
     }
-    .t2{
-      font-size: 350%;
-      font-family: Helvetica;
-      text-align: center;
-      border-bottom-style: solid;
-      border-color: #eeeeee;
-      width: 12.5%;
+    table{
+      flex: auto;
     }
     td{
+      font-size: 320%;
       overflow: hidden;
     }
     .m{
@@ -99,7 +80,7 @@
   $busstopsname = array("Front Gate", "Back Gate", "Back Gate Middle", "Back Gate Far");
   $ch = curl_init();
   curl_setopt_array($ch, array(
-    CURLOPT_HTTPHEADER => array('AccountKey:'.ACCOUNT_KEY),
+    CURLOPT_HTTPHEADER => array('AccountKey:'. ACCOUNT_KEY),
     CURLOPT_RETURNTRANSFER => true,
   ));
 
@@ -154,7 +135,7 @@
 
   function disRow($data, $i, $n) {
     echo "<td class='busNo'>" . $data[$i]['ServiceNo'] . "</td>
-    <td class='t1' style=' background-color: " . getColor($data[$i]['NextBus']['Load']) . "'>
+    <td class='tableCell' style=' background-color: " . getColor($data[$i]['NextBus']['Load']) . "'>
     " . getMins($data[$i]['NextBus']['EstimatedArrival']);
     if (getMins($data[$i]['NextBus']['EstimatedArrival']) != 'Arr') {
       echo "<span class='m'>m</span>
@@ -162,7 +143,7 @@
     } else {
       echo "</td>";
     }
-    echo "<td class='t2' style=' background-color: " . getColor($data[$i]['NextBus2']['Load']) . "'>
+    echo "<td class='tableCell' style=' background-color: " . getColor($data[$i]['NextBus2']['Load']) . "'>
     " . getMins($data[$i]['NextBus2']['EstimatedArrival']);
     if (getMins($data[$i]['NextBus2']['EstimatedArrival']) != 'Arr') {
       echo "<span class='m'>m</span>
@@ -184,17 +165,16 @@
 
   function display($data, $n) {
     $busstopsname = array("Front Gate", "Back Gate", "Back Gate Middle", "Back Gate Far");
-    $stopnameheight = array("9%", "21.5%", "50.5%", "71.5%");
-    $tableheight = array("14.5%", "27%", "56.5%", "77.5%");
     if ($n <= 1) {
       echo "
-      <p class='stopName' style='width:50%; position: absolute; top:" . $stopnameheight[$n] . ";'>
+      <p class='stopName'>
       " . $busstopsname[$n] . "</p>
-      <table class='stop' style='width: 49%; top: " . $tableheight[$n] . ";'>
+      <table class='stop' style='width: calc(50% - 12px);''>
       ";
       for ($i = 0; $i < count($data); $i++) {
         echo "<tr>";
         disRow($data, $i, $n);
+        echo "<td style='width: 2%;'></td>";
         echo "</tr>";
       }
       echo"
@@ -202,14 +182,14 @@
       ";
     } else {
       echo"
-      <p class='stopName' style='width:100%; position: absolute; top:" . $stopnameheight[$n] . "'>
+      <p class='stopName' style='width: calc(100% - 24px);'>
       " . $busstopsname[$n] . "</p>
-      <table class='stop' style='width:100%; position: absolute; top:" . $tableheight[$n] . "'>
+      <table class='stop' style='width: calc(100% - 24px);'>
       ";
       for ($i = 0; $i < (count($data) / 2); $i++) {
         echo "<tr>";
         disRow($data, 2 * $i, $n);
-        echo "<td style='width: 5%;'></td>";
+        echo "<td style='width: 2%;'></td>";
         disRow($data, (2 * $i) + 1, $n);
         echo"</tr>";
       }
@@ -219,33 +199,34 @@
     }
   }
 ?>
-<div id="top">
-  <p class="title"> NUSH Bus Timings
-    <span id="time">
+<table style="position: absolute; top: 19%; right: 12px; border-style: solid; border-color: black;">
+  <tr>
+    <td style="padding:5px;border-width: 0px;background-color: #99ff99;font-size: 180%;"> Seats Available</td>
+  </tr>
+  <tr>
+    <td style="padding:5px;border-width: 0px;background-color: #ffff99; font-size: 180%;"> Standing Available</td>
+  </tr>
+  <tr>
+    <td style="padding:5px;border-width: 0px;background-color: #ff9999; font-size: 180%;"> Standing Limited</td>
+  </tr>
+</table>
+<div class="container">
+  <div id="top">
+    <p style="font-weight:700;"> NUSH Bus Timings</p>
+    <p style="font-weight:600;">
       <?php
       date_default_timezone_set("Asia/Singapore");
       echo date("h:ia");
       ?>
-    </span>
-  </p>
+    </p>
   </div>
-  <table style="position: absolute; top: 19%; right: 3%; border-style: solid; border-color: black;">
-    <tr>
-      <td style="text-align: left;padding:5px;border-width: 0px;background-color: #99ff99;font-size: 200%; font-family: Helvetica;"> Seats Available</td>
-    </tr>
-    <tr>
-      <td style="text-align: left;padding:5px;border-width: 0px;background-color: #ffff99; font-size: 200%; font-family: Helvetica;"> Standing Available</td>
-    </tr>
-    <tr>
-      <td style="text-align: left;padding:5px;border-width: 0px;background-color: #ff9999; font-size: 200%; font-family: Helvetica;"> Standing Limited</td>
-    </tr>
-  </table>
   <?php
-  for ($i = 0; $i < count($busstops); $i++) {
-    display(cleanUp($out[$i]['Services']), $i);
-  }
+    for ($i = 0; $i < count($busstops); $i++) {
+      display(cleanUp($out[$i]['Services']), $i);
+    }
   ?>
-  <script>
+</div>
+<script>
   setInterval(function () {
     var xhttp;
     xhttp = new XMLHttpRequest();
@@ -256,7 +237,7 @@
     };
     xhttp.open("GET", "5.php", true);
     xhttp.send();
-  }, 5000);
-  </script>
+  }, 100000);
+</script>
 </body>
 </html>
