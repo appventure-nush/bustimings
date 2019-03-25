@@ -237,7 +237,7 @@
     };
     xhttp.open("GET", "5.php", true);
     xhttp.send();
-  }, 100000);
+  }, 5000);
 </script>
 </body>
 </html>

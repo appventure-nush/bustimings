@@ -37,9 +37,7 @@
             </h1>
         </div>
         <?php
-
 		require 'config.php';
-
 		$busstops = array("16991", "17191", "17129", "17121");
         $busstopsname = array("Front Gate", "Back Gate", "Back Gate Middle", "Back Gate Far");
         $ch = curl_init();
