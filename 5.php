@@ -1,83 +1,98 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="refresh" content="300">
-    <meta name="viewport" content="width=device-width,initial-scale=0.7,maximum-scale=0.7,user-scalable=no">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:600,700" rel="stylesheet">
-    <style>
-    * {
-      box-sizing: border-box;
-    }
-    html, body{
-      margin: 0;
-      font-family: 'Open Sans', sans-serif;
-      overflow:hidden;
-      background-color: #FFF;
-      height: 100%;
-    }
-    .container{
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .container p,table {
-      margin-left: 12px;
-      margin-right: 12px;
-    }
-    #top{
-      display: flex;
-      padding: 6px 12px;
-      justify-content: space-between;
-      background-color: #000;
-      color: #FFF;
-    }
-    #top p {
-      margin: 0;
-      font-size: 250%;
-      background-color:transparent;
-    }
-    .stopName{
-      font-weight: 600;
-      font-size: 260%;
-      margin: 0;
-    }
-    .stop{
-      table-layout: fixed;
-      border-collapse: collapse;
-    }
-    .busNo{
-      color: #FFF;
-      border-bottom-style: solid;
-      text-align: center;
-      background-color: #b30000;
-    }
-    .tableCell{
-      font-weight: 600;
-      border-right-style: solid;
-      border-left-style: solid;
-      text-align: center;
-      border-bottom-style: solid;
-      border-color: #FFF;
-    }
-    table{
-      flex: auto;
-    }
-    td{
-      font-size: 320%;
-      overflow: hidden;
-    }
-    .m{
-      font-size:70%;
-    }
-  </style>
+<head>
+  <meta http-equiv="refresh" content="30">
+  <meta name="viewport" content="width=device-width,initial-scale=0.7,maximum-scale=0.7,user-scalable=no">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Roboto:500" rel="stylesheet">
+  <style>
+  * {
+    box-sizing: border-box;
+  }
+  html, body{
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+    overflow:hidden;
+    background-color: #FFF;
+    height: 100%;
+  }
+  .container{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .container p,table {
+    margin-left: 12px;
+    margin-right: 12px;
+  }
+  #top{
+    padding: 6px 12px;
+    justify-content: space-between;
+    background-color: #000;
+    color: #FFF;
+  }
+  #top p {
+    margin: 0;
+    font-size: 250%;
+    background-color:transparent;
+  }
+  .stopName{
+    font-weight: 400;
+    font-size: 260%;
+    margin: 0;
+  }
+  .stop{
+    table-layout: fixed;
+    border-collapse: collapse;
+  }
+  .busNo{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 54px;
+    color: #FFF;
+    border-bottom-style: solid;
+    text-align: center;
+    background-color: #b30000;
+  }
+  .tableCell{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 54px;
+    border-right-style: solid;
+    border-left-style: solid;
+    text-align: center;
+    border-bottom-style: solid;
+    border-color: #FFF;
+  }
+  .colorTable{
+    position: absolute;
+    top: 10%;
+    right: 12px;
+  }
+  .colorTable td{
+    padding:8px;
+    border-width: 0px;
+    font-size: 180%;
+    border: none;
+  }
+  table{
+    flex: auto;
+  }
+  td{
+    font-size: 320%;
+    overflow: hidden;
+  }
+  .m{
+    font-size:60%;
+  }
+</style>
 </head>
 <body>
 <?php
   require 'config.php';
 
   $busstops = array("16991", "17191", "17129", "17121");
-  $busstopsname = array("Front Gate", "Back Gate", "Back Gate Middle", "Back Gate Far");
+  $busstopsname = array("Front Gate", "Back Gate", "Aft NUSH", "Blk 610");
   $ch = curl_init();
   curl_setopt_array($ch, array(
     CURLOPT_HTTPHEADER => array('AccountKey:'. ACCOUNT_KEY),
@@ -166,7 +181,7 @@
   }
 
   function display($data, $n) {
-    $busstopsname = array("Front Gate", "Back Gate", "Back Gate Middle", "Back Gate Far");
+    global $busstopsname;
     if ($n <= 1) {
       echo "
       <p class='stopName'>
@@ -201,21 +216,21 @@
     }
   }
 ?>
-<table style="position: absolute; top: 19%; right: 12px; border-style: solid; border-color: black;">
+<table class="colorTable">
   <tr>
-    <td style="padding:5px;border-width: 0px;background-color: #99ff99;font-size: 180%;"> Seats Available</td>
+    <td style="background-color: #99ff99;">Seats Available</td>
   </tr>
   <tr>
-    <td style="padding:5px;border-width: 0px;background-color: #ffff99; font-size: 180%;"> Standing Available</td>
+    <td style="background-color: #ffff99;">Standing Available</td>
   </tr>
   <tr>
-    <td style="padding:5px;border-width: 0px;background-color: #ff9999; font-size: 180%;"> Standing Limited</td>
+    <td style="background-color: #ff9999;">Standing Limited</td>
   </tr>
 </table>
 <div class="container">
   <div id="top">
-    <p style="font-weight:700;"> NUSH Bus Timings</p>
-    <p style="font-weight:600;">
+    <p style="display: inline-block;font-weight:700;">NUSH Bus Timings</p>
+    <p style="display: inline-block;font-weight:600;float:right;">
       <?php
       date_default_timezone_set("Asia/Singapore");
       echo date("h:ia");
