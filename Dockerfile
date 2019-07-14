@@ -1,6 +1,6 @@
 FROM php:7.3.7-apache
 
-EXPOSE 80
+EXPOSE 8080
 
 WORKDIR /srv
 
