@@ -48,7 +48,7 @@
   .busNo{
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
-    font-size: 54px;
+    font-size: 58px;
     color: #FFF;
     border-bottom-style: solid;
     text-align: center;
@@ -57,7 +57,7 @@
   .tableCell{
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
-    font-size: 54px;
+    font-size: 58px;
     border-right-style: solid;
     border-left-style: solid;
     text-align: center;
