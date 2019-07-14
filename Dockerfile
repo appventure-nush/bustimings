@@ -1,6 +1,8 @@
 FROM php:7.3.7-apache
 
-EXPOSE 8080
+EXPOSE 80 8080
+
+ADD apache-config.conf /etc/apache2/sites-enabled/000-default.conf
 
 WORKDIR /srv
 

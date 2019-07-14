@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="refresh" content="30">
   <meta name="viewport" content="width=device-width,initial-scale=0.7,maximum-scale=0.7,user-scalable=no">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Roboto:500" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:600,700|Roboto:500" rel="stylesheet">
   <style>
   * {
     box-sizing: border-box;
@@ -37,7 +37,7 @@
     background-color:transparent;
   }
   .stopName{
-    font-weight: 400;
+    font-weight: 600;
     font-size: 260%;
     margin: 0;
   }
@@ -73,6 +73,7 @@
     padding:8px;
     border-width: 0px;
     font-size: 180%;
+    font-weight: 600;
     border: none;
   }
   table{
